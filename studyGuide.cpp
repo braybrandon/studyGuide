@@ -3,16 +3,15 @@
 #include <vector>
 #include <sstream>
 #include <fstream>
-#include "Question.h"
+#include "Test.h"
 
 using namespace std;
-void setTest(ifstream& in_file, vector<Question>& test);
+void setTest(ifstream& in_file, Test& test);
 
-void askQuestion(vector<Question>& test);
 
 int main(int argc, char** argv) 
 {
-	vector<Question> test;
+	Test test;
 	if (argc < 2) 
 	{
 		cout << "Warning you need to input a file to run this program!" << endl;
@@ -29,13 +28,13 @@ int main(int argc, char** argv)
 	}
 
 	setTest(in_file, test);
-	askQuestion(test);
+	test.study();
 	in_file.close();
 	return 0;
 }
 
 
-void setTest(ifstream& in_file, vector<Question>& test)
+void setTest(ifstream& in_file, Test& test)
 {
 	string textline;
 	int i = 0;
@@ -44,33 +43,12 @@ void setTest(ifstream& in_file, vector<Question>& test)
 	{
 		Question newQuestion;
 		newQuestion.setQuestion(textline);
-		test.push_back(newQuestion);
 		
 		getline(in_file, textline);
-		test[i].setAnswer(textline);
-		
-		cout << test[i].getQuestion() << endl;
-		cout << test[i].getAnswer() << endl;
-
-		i++;
-			
+		newQuestion.setAnswer(textline);
+		test.addQuestion(newQuestion);
 	}	
 
 }
 
 
-void askQuestion(vector<Question>& test)
-{
-	string user_answer;
-	cout << test[0].getQuestion() << endl;
-	getline(cin, user_answer);
-	test[0].setUserAnswer(user_answer);
-
-	cout << test[0].getAnswer() << endl;
-	cout << test[0].getUserAnswer() << endl;
-	if (test[0].checkAnswer())
-		cout << "Correct!" << endl;
-	else
-		cout << "You Suck!!" << endl;
-
-}
