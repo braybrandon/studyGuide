@@ -34,6 +34,9 @@ void Question::setAnswer(string original)
 void Question::setUserAnswer(string original)
 {
 	user_answer = original;
+	
+	//calls transform function to convert all characters in user_answer to lower case letters
+	transform(user_answer.begin(), user_answer.end(), user_answer.begin(), ::tolower);
 }
 
 bool Question::checkAnswer()

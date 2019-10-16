@@ -4,6 +4,7 @@ cd ./testFiles
 ls
 echo "Would you like to create a new file?"
 read user_answer
+user_answer=${user_answer^^}
 if [ $user_answer == "yes" ]
 then
 	echo "Please provide a filename"
@@ -25,7 +26,7 @@ fi
 array=(`ls`);
 cd ..
 echo "Which file would you like to study"
-read "file"
+read file
 i=0
 j=0
 for k in ${array[@]}
