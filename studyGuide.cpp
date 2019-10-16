@@ -3,6 +3,7 @@
 #include <vector>
 #include <sstream>
 #include <fstream>
+#include <algorithm>
 #include "Test.h"
 
 using namespace std;
@@ -71,6 +72,8 @@ void setTest(ifstream& in_file, Test& test)
 		//gets the answer of the question from the file
 		getline(in_file, textline);
 
+		transform(textline.begin(), textline.end(), textline.begin(), ::tolower);
+
 		//adds the answer to the question string member answer
 		newQuestion.setAnswer(textline);
 
@@ -92,6 +95,7 @@ void studyLoop(Test& test)
 		test.study();
 		cout << "Would you like to study again?" << endl;
 		getline(cin, playAgain);
-	} while(playAgain != "No" && playAgain != "no");
+		transform(playAgain.begin(), playAgain.end(), playAgain.begin(), ::tolower);
+	} while(playAgain != "no");
 
 }

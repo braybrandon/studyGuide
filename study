@@ -1,0 +1,46 @@
+#!/bin/bash
+
+cd ./testFiles
+ls
+echo "Would you like to create a new file?"
+read user_answer
+user_answer=${user_answer^^}
+if [ $user_answer == "yes" ]
+then
+	echo "Please provide a filename"
+	read filename
+	anotherQuestion="yes"
+	while [ $anotherQuestion != "no" ] 
+	do
+
+		echo "Please provide your question: "
+		read question
+		echo "Please provide your answer"
+		read answer
+		echo "$question" >> $filename
+		echo "$answer" >> $filename
+		echo "Would you like to provide another question?"
+		read anotherQuestion
+	done	
+fi
+array=(`ls`);
+cd ..
+echo "Which file would you like to study"
+read file
+i=0
+j=0
+for k in ${array[@]}
+do
+	j=$((j+1))
+done
+while [ $file != ${array[$i]} ] && [ $i -ne $((j-1)) ]
+do
+	i=$((i+1))
+done
+echo "$i	$j"
+if [ $file != ${array[$i]} ] && [ $i -eq $((j-1)) ]
+then
+	echo "Not a file!"
+else
+	./studyGuide ./testFiles/${array[$i]}
+fi
