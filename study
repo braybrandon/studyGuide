@@ -1,28 +1,22 @@
 #!/bin/bash
 
 cd ./testFiles
-ls
-echo "Would you like to create a new file?"
-read user_answer
-user_answer=${user_answer^^}
-if [ $user_answer == "yes" ]
-then
-	echo "Please provide a filename"
-	read filename
-	anotherQuestion="yes"
-	while [ $anotherQuestion != "no" ] 
-	do
 
-		echo "Please provide your question: "
-		read question
-		echo "Please provide your answer"
-		read answer
-		echo "$question" >> $filename
-		echo "$answer" >> $filename
-		echo "Would you like to provide another question?"
-		read anotherQuestion
-	done	
-fi
+display_menu()
+{
+	echo "--------------------------------------------------"
+	echo "			Study guide APP"
+	echo "--------------------------------------------------"
+	echo "	A) Study an existing file?"
+	echo "	B) Create a new study guide?"
+	echo " 	C) List existing study guide files"
+	echo "	D) Edit existing study guide File"
+	echo "	Enter q or Q to quit the program"
+}
+
+studyExistingFile()
+{
+ls
 array=(`ls`);
 cd ..
 echo "Which file would you like to study"
@@ -44,3 +38,28 @@ then
 else
 	./studyGuide ./testFiles/${array[$i]}
 fi
+}
+
+userMenuSelection()
+{
+	read user_answer
+	user_answer=${user_answer^}
+	while [ $user_answer != "Q" ]
+	do
+		case $user_answer in
+			A) studyExistingFile;;
+			B);;
+			C);;
+			D);;
+			Q);;
+			*) echo "Invalid option"
+				display_menu
+				read user_Anser
+				user_answer=${user_answer^};;
+		esac
+	done
+}
+
+display_menu
+userMenuSelection
+
